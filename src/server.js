@@ -19,11 +19,11 @@ const middlewares = [
   layout(),
   express.static(path.join(__dirname, 'public')),
   bodyParser.urlencoded(),
-  cookieParser('super-secret-key'),
-  session({ cookie: { maxAge: 60000 } }),
-  csrf({ cookie: true }),
-  validator({ extended: false }),
-  flash()
+  // cookieParser('super-secret-key'),
+  // session({ cookie: { maxAge: 60000 } }),
+  // csrf({ cookie: true }),
+  // validator({ extended: false }),
+  // flash()
 ]
 app.use(middlewares)
 
