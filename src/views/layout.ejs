@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Forms in Node.js</title>
-    <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
-    <link rel="stylesheet" href="/style.css" type="text/css" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Awards and Recognition</title>
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/icofont/icofont.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/boxicons/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/remixicon/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/venobox/venobox.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/owl.carousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet" />
   </head>
   <body>
+    <%- include('partials/header.ejs') %>
     <%- body %>
+    <%- include('partials/footer.ejs') %>
     <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/js/main.js" ></script>
   </body>

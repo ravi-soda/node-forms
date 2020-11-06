@@ -1,0 +1,39 @@
+<div>
+  <img src="Award.jpg" width="200%" height="200%" />
+</div>
+
+<% if (data.status && data.status.statusCode) { %>
+  <div id="awardModal" class="flex align-center align-vert modal modal--align modal--show">
+    <div class="modal__container">
+      <form method="GET" action="/hideModal" >
+        <a class="modal__close modal__close--x" href="/hideModal" aria-hidden="true">✕</a>
+        <p>Although we have an 'X' to close we should always have a button/link to cancel the modal</p>
+        <div style ="
+          <% if (data.status.statusCode === 'SUCCESS') { %>
+            background-color: green
+          <% } else { %>
+            background-color: red
+          <% } %>
+        ">
+          <%= data.status.statusCode %>::<%= data.status.statusMessage %>
+        </div>
+        <button class="modal__close" type="submit" >Cancel link</button>
+      </form>
+    </div>
+  </div>
+<% } %>
+<% if(data.awards.length > 0 ) { %>
+  <form method="POST" action="/send-email" novalidate>
+    <% data.awards.forEach(award => { %>
+      <input name="awardId" id="<%=award.id %>" value="<%=award.id %>" type="radio" 
+      <% if(award.isSentEmail) { %>
+      disabled 
+      <% } %>
+      />
+      <label for="<%=award.id %>"><%= award.name %></label>
+    <% }) %>
+    <button type="submit" title="Send Email">Send Email</button>
+  </form>
+<% } else { %>
+  <p>No Awards provided.</p>
+<% } %>

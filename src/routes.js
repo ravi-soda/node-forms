@@ -22,6 +22,7 @@ let awards = [
     subject: 'Test',
     text: 'Test text',
     isSentEmail: false,
+    awardType: 'gold'
   },
   {
     id: 'gameChanger2',
@@ -30,6 +31,7 @@ let awards = [
     subject: 'Test',
     text: 'Test text',
     isSentEmail: false,
+    awardType: 'silver'
   },
   {
     id: 'gameChanger3',
@@ -38,6 +40,7 @@ let awards = [
     subject: 'Test',
     text: 'Test text',
     isSentEmail: false,
+    awardType: 'bronze'
   },
   {
     id: 'gameChanger4',
@@ -46,6 +49,7 @@ let awards = [
     subject: 'Test',
     text: 'Test text',
     isSentEmail: false,
+    awardType: 'platinum'
   },
 ];
 
@@ -102,7 +106,7 @@ router.post ('/send-email', (req, res) => {
     <div
       style="border-radius:5px;text-align:justify;padding:15px;box-shadow: 0px 0px 10px 1px #888888;background-color:#FFF;margin:0 auto;font:16px Helvetica,Arial,sans-serif;line-height:1.5;color:#848484;"
     >
-      <b>Hello '+user+',</b><br />
+      <b>Hello ${selectedAward.firstName},</b><br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome to Sattvarise Technologies. We offers
       market-leading expertise in the latest 3D, Augmented Reality and Virtual
       Reality for Android, iOS, Google Cardboard, GearVR and more.. <br /><br />
@@ -262,6 +266,10 @@ router.post ('/send-email', (req, res) => {
         filename : 'kat-banner-bg.jpg',
         path: './src/public/Award.jpg',
         cid : 'image1@johnson.com'
+    },
+    {
+      filename: 'hundiReciept.pdf',
+      path: './src/public/hundiReciept.pdf'
     }]
   };
   console.log (mailOptions);
