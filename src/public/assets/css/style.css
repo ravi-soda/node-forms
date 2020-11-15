@@ -39,6 +39,12 @@
   font-size: 10rem;
 }
 
+.bannerLogo {
+  color: goldenrod;
+  font-size: 1em;
+}
+
+
 
 /*--------------------------------------------------------------
 # General
@@ -429,11 +435,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .mobile-nav-active .mobile-nav-toggle i {
   color: #fff;
-}
-
-.bannerLogo {
-  color: goldenrod;
-  font-size: 5em;
 }
 
 /*--------------------------------------------------------------

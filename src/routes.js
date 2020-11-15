@@ -53,10 +53,32 @@ let awards = [
   },
 ];
 
+let recipientList = [
+  {
+    id: '1',
+    fName: 'Ravi',
+    lName: 'S',
+    email: 'ravi.s@ijk.com'
+  },
+  {
+    id: '2',
+    fName: 'Yamni',
+    lName: 'R',
+    email: 'Yamini.R@ijk.com'
+  },
+  {
+    id: '3',
+    fName: 'Kalash',
+    lName: 'H',
+    email: 'Kalash.H@ijk.com'
+  }
+]
+
 router.get ('/', (req, res) => {
   res.render ('index', {
     data: {
       awards,
+      recipientList,
       status: {
         statusCode: '',
       },
@@ -76,6 +98,7 @@ router.post ('/send-email', (req, res) => {
     res.render ('index', {
       data: {
         awards,
+        recipientList,
         status: {
           statusCode: 'FAIL',
           statusMessage: 'Please select a valid award.',
@@ -288,6 +311,7 @@ router.post ('/send-email', (req, res) => {
   res.render ('index', {
     data: {
       awards,
+      recipientList,
       status: {
         statusCode: 'SUCCESS',
         statusMessage: `Email was sent successfully to ${selectedAward.recipientEmailAddress}`,
@@ -300,6 +324,7 @@ router.get('/hideModal', (req, res) => {
   res.render('index', {
     data: {
       awards,
+      recipientList,
       status: {
       }
     }
@@ -310,6 +335,7 @@ router.get('/showModal', (req, res) => {
   res.render('index', {
     data: {
       awards,
+      recipientList,
       status: {
         statusCode: 'SUCCESS',
         statusMessage: 'Showing Modal'

@@ -1,48 +1,136 @@
+<% if (data.status && data.status.statusCode) { %>
+<div
+  id="awardModal"
+  class="flex align-center align-vert modal modal--align modal--show"
+>
+  <div class="modal__container">
+    <form method="GET" action="/hideModal">
+      <a
+        class="modal__close modal__close--x"
+        href="/hideModal"
+        aria-hidden="true"
+        >✕</a
+      >
+      <p>
+        Although we have an 'X' to close we should always have a button/link to
+        cancel the modal
+      </p>
+      <div
+        style="
+          <% if (data.status.statusCode === 'SUCCESS') { %>
+            background-color: green
+          <% } else { %>
+            background-color: red
+          <% } %>
+        "
+      >
+        <%= data.status.statusCode %>::<%= data.status.statusMessage %>
+      </div>
+      <button class="modal__close" type="submit">Cancel link</button>
+    </form>
+  </div>
+</div>
+<% } %>
+
 <!-- ======= Hero Section ======= -->
-<form method="POST" action="/send-email" novalidate>
-  <section id="hero" class="d-flex align-items-center">
-    <div class="container position-relative">
-      <div class="row justify-content-center">
-        <div class="col-xl-7 col-lg-9 text-center">
-          <h1>Capgemini</h1>
-          <h2>Awards and Recognition Program</h2>
+
+<section id="hero" class="d-flex align-items-center">
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-xl-7 col-lg-9 text-center">
+        <h1>Capgemini</h1>
+        <h2>Awards and Recognition Program</h2>
+      </div>
+    </div>
+    <div>
+      &nbsp;
+    </div>
+    <div class="sendEmail text-center">
+      <button class="contact" type="submit">Send Email</button>
+    </div>
+
+    <div class="row icon-boxes">
+      <% if(data.awards.length > 0 ) { %> <% data.awards.forEach(award => { %>
+      <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box">
+          <div class="icon text-center">
+            <i class="ri-medal-fill <%=award.awardType %>"></i>
+          </div>
+          <h4 class="title"><a href="">Game Changer</a></h4>
+          <p class="description">
+            Voluptatum deleniti atque corrupti quos dolores et quas molestias
+            excepturi
+          </p>
+          <form method="POST" action="/send-email" novalidate>
+            <div class="form-row align-items-center">
+              <div class="col-auto">
+                <input type="hidden" name="awardType" value="myAwardType" />
+              </div>
+              <div class="col-auto">
+                <label class="sr-only" for="inlineFormInputGroup"
+                  >Select a recipient</label
+                >
+                <div class="input-group mb-2">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="recipientEmailAddress"
+                    list="recipientList"
+                  />
+                  <% if (data.recipientList.length > 0) { %>
+                  <datalist id="recipientList">
+                    <% data.recipientList.forEach(recipient => { %>
+                    <option value="<%=recipient.email%>"
+                      ><%= recipient.fName%></option
+                    >
+                    <% }) %>
+                  </datalist>
+                  <% } %>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <button style="padding: 0px; border: none" type="submit">
+                        <i class="ri-send-plane-fill" style="color: #2487ce"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <label class="sr-only" for="inlineFormInputGroup"
+                  >Select a recipient</label
+                >
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inlineFormInputGroup"
+                    placeholder="Username"
+                  />
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <button style="padding: 0px; border: none" type="submit">
+                        <i class="ri-send-plane-fill"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <input
+                    class="form-check-input"
+                    type="radio"
+                    id="<%=award.id %>" 
+                    value="<%=award.id %>" 
+                    name="awardId"
+                    <% if(award.isSentEmail) { %>
+                      disabled 
+                    <% } %>
+                  />
+                  <label class="form-check-label" for="<%=award.id %>"></label> -->
+            </div>
+          </form>
         </div>
       </div>
-      <div>
-        &nbsp;
-      </div>
-      <div class="sendEmail text-center">
-        <button class="contact" type="submit">Send Email</button>
-      </div>
-
-      <div class="row icon-boxes">
-        <% if(data.awards.length > 0 ) { %>
-          <% data.awards.forEach(award => { %>
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-              <div class="icon-box">
-                <div class="icon text-center">
-                  <i class="ri-medal-fill <%=award.awardType %>"></i>
-                </div>
-                <h4 class="title"><a href="">Game Changer</a></h4>
-                <p class="description">
-                  Voluptatum deleniti atque corrupti quos dolores et quas molestias
-                  excepturi
-                </p>
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  id="<%=award.id %>" 
-                  value="<%=award.id %>" 
-                  name="awardId"
-                  <% if(award.isSentEmail) { %>
-                    disabled 
-                  <% } %>
-                />
-                <label class="form-check-label" for="<%=award.id %>"></label>
-              </div>
-            </div>
-          <% }) %>
-        <% } %>
+      <% }) %> <% } %>
 
       <!-- <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
           <div class="icon-box">
@@ -103,8 +191,8 @@
             <label class="form-check-label" for="defaultCheck2"> </label>
           </div>
         </div> -->
-      </div>
     </div>
-  </section>
-</form>
+  </div>
+</section>
+<!-- </form> -->
 <!-- End Hero -->
