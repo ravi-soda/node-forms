@@ -75,6 +75,7 @@ class SendEmail {
             <p style="font-family: system-ui;font-style: oblique;font-size: x-large;color: goldenrod;">
                 The best way to predict future is to create it.
             </p>
+            <img src="cid:image1@johnson.com" width="100%" />
             <div
               style="position: absolute;bottom: 0px;left: 0px;margin: 15px;color: #eee;"
             >
