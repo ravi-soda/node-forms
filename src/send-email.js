@@ -7,18 +7,8 @@ const EMAIL_USERNAME = '';
 const EMAIL_PASSWORD = '';
 
 class SendEmail {
-  smtpTransport;
 
   constructor () {
-    // this.smtpTransport = nodemailer.createTransport ({
-    //   service: EMAIL_SERVICE,
-    //   host: EMAIL_HOST,
-    //   port: EMAIL_PORT,
-    //   auth: {
-    //     user: EMAIL_USERNAME,
-    //     pass: EMAIL_PASSWORD,
-    //   },
-    // });
   }
 
   prepareMailOptions = (
@@ -108,7 +98,7 @@ class SendEmail {
     // TODO: stopped sending email. Can be enabled once code is ready.
     return new Promise ((resolve, reject) => {
 
-      const varSMPTTransport = nodemailer.createTransport ({
+      let transporter = nodemailer.createTransport ({
         service: EMAIL_SERVICE,
         host: EMAIL_HOST,
         port: EMAIL_PORT,
@@ -117,20 +107,18 @@ class SendEmail {
           pass: EMAIL_PASSWORD,
         },
       });
-
-      varSMPTTransport.sendEmail (mailOptions, function (error, response) {
+      
+      transporter.sendMail (mailOptions, function (error, response) {
         if (error) {
           console.log (error.message, error.stack);
-          varSMPTTransport.close();
+          transporter.close();
           reject('ERROR');
         } else {
           console.log ('Message sent: ', JSON.stringify (response));
-          varSMPTTransport.close();
+          transporter.close();
           resolve('SENT');
         }
       });
-
-      
     });
   };
 }

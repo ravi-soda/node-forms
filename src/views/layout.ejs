@@ -10,22 +10,10 @@
       href="assets/vendor/bootstrap/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link
-      href="assets/vendor/icofont/icofont.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="assets/vendor/boxicons/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="assets/vendor/remixicon/remixicon.css"
-      rel="stylesheet"
-    />
-    <link
-      href="assets/vendor/venobox/venobox.css"
-      rel="stylesheet"
-    />
+    <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet" />
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="assets/vendor/venobox/venobox.css" rel="stylesheet" />
     <link
       href="assets/vendor/owl.carousel/assets/owl.carousel.min.css"
       rel="stylesheet"
@@ -36,16 +24,19 @@
     <link href="assets/css/style.css" rel="stylesheet" />
   </head>
   <body>
-    <%- include('partials/header.ejs') %>
-    <%- body %>
-    <%- include('partials/footer.ejs') %>
-    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <%- include('partials/header.ejs') %> <%- body %> <%-
+    include('partials/footer.ejs') %>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.js"
+      integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+      crossorigin="anonymous"
+    ></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./js/main.js" ></script>
+    <script type="text/javascript" src="./js/main.js"></script>
     <script>
-      $(document).ready(function(){
-        $(".sendEmailBtn").on('click', function(e){
-
+      $(document).ready(function() {
+        $('.sendEmailBtn').on('click', function(e) {
+          alert('hi');
           e.preventDefault(); // avoid to execute the actual submit of the form.
 
           console.log(e.target.id);
@@ -54,18 +45,20 @@
           var form = $(`#form-${formId}`);
           var url = form.attr('action');
           var isSuccess = false;
+          console.log('Form url ', url);
 
           $.ajax({
-                type: "POST",
-                url: url,
-                data: form.serialize(), // serializes the form's elements.
-                success: function(data)
-                {
-                    // alert(data); // show response from the php script.
-                    isSuccess = true;
-                    $('#myModal').modal('show');
-                }
-
+            type: 'POST',
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data) {
+              console.log(data); // show response from the php script.
+              var responseStatus = data.data.status;
+              isSuccess = true;
+              $('#exampleModalLongTitle').html(responseStatus.statusCode);
+              $('#exampleModalBody').html(responseStatus.statusMessage);
+              $('#myModal').modal('show');
+            },
           });
 
           // $.ajax({
