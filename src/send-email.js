@@ -10,15 +10,15 @@ class SendEmail {
   smtpTransport;
 
   constructor () {
-    this.smtpTransport = nodemailer.createTransport ({
-      service: EMAIL_SERVICE,
-      host: EMAIL_HOST,
-      port: EMAIL_PORT,
-      auth: {
-        user: EMAIL_USERNAME,
-        pass: EMAIL_PASSWORD,
-      },
-    });
+    // this.smtpTransport = nodemailer.createTransport ({
+    //   service: EMAIL_SERVICE,
+    //   host: EMAIL_HOST,
+    //   port: EMAIL_PORT,
+    //   auth: {
+    //     user: EMAIL_USERNAME,
+    //     pass: EMAIL_PASSWORD,
+    //   },
+    // });
   }
 
   prepareMailOptions = (
@@ -102,21 +102,38 @@ class SendEmail {
     };
 
     return mailOptions;
-  }
+  };
 
-  sendEmail = (mailOptions) => {
+  sendEmail(mailOptions) {
     // TODO: stopped sending email. Can be enabled once code is ready.
-    this.smtpTransport.sendMail (mailOptions, function (error, response) {
-      if (error) {
-        console.log (error.message, error.stack);
-        return 'ERROR';
-      } else {
-        console.log ('Message sent: ', JSON.stringify (response));
-        return 'SENT';
-      }
+    return new Promise ((resolve, reject) => {
+
+      const varSMPTTransport = nodemailer.createTransport ({
+        service: EMAIL_SERVICE,
+        host: EMAIL_HOST,
+        port: EMAIL_PORT,
+        auth: {
+          user: EMAIL_USERNAME,
+          pass: EMAIL_PASSWORD,
+        },
+      });
+
+      varSMPTTransport.sendEmail (mailOptions, function (error, response) {
+        if (error) {
+          console.log (error.message, error.stack);
+          varSMPTTransport.close();
+          reject('ERROR');
+        } else {
+          console.log ('Message sent: ', JSON.stringify (response));
+          varSMPTTransport.close();
+          resolve('SENT');
+        }
+      });
+
+      
     });
-  }
+  };
 }
 
-const sendEmailComponent = new SendEmail();
+const sendEmailComponent = new SendEmail ();
 module.exports = sendEmailComponent;

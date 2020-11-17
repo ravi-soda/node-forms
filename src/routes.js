@@ -70,19 +70,33 @@ router.post ('/send-email', (req, res) => {
     selectedRecipient.lName
   );
   console.log (mailOptions);
-  const response = sendEmailComponent.sendEmail (mailOptions);
-  console.log ('Email Response', response);
-  
-  res.render ('index', {
-    data: {
-      awards,
-      recipientList: RECIPIENT_LIST,
-      status: {
-        statusCode: 'SUCCESS',
-        statusMessage: `Email was sent successfully to ${selectedAward.recipientEmailAddress}`,
+  const response = sendEmailComponent.sendEmail (mailOptions).then(msg => {
+    console.log ('Email Response', msg);
+    res.send ({
+      data: {
+        awards,
+        recipientList: RECIPIENT_LIST,
+        status: {
+          statusCode: 'SUCCESS',
+          statusMessage: `Email was sent successfully to ${selectedAward.recipientEmailAddress}`,
+        },
       },
-    },
+    });
+  }).catch(e => {
+    console.log(e.message, e.stack);
+    res.send ({
+      data: {
+        awards,
+        recipientList: RECIPIENT_LIST,
+        status: {
+          statusCode: 'FAIL',
+          statusMessage: `Email was NOT sent successfully to ${selectedAward.recipientEmailAddress}`,
+        },
+      },
+    });
   });
+  
+  
 });
 
 router.get ('/hideModal', (req, res) => {

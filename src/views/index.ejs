@@ -45,9 +45,6 @@
     <div>
       &nbsp;
     </div>
-    <div class="sendEmail text-center">
-      <button class="contact" type="submit">Send Email</button>
-    </div>
 
     <div class="row icon-boxes">
       <% if(data.awards.length > 0 ) { %> <% data.awards.forEach(award => { %>
@@ -61,15 +58,21 @@
             Voluptatum deleniti atque corrupti quos dolores et quas molestias
             excepturi
           </p>
-          <form method="POST" action="/send-email" novalidate>
+          <form id="form-<%=award.id %>" method="POST" action="/send-email" novalidate>
             <div class="form-row align-items-center">
               <div class="col-auto">
-                <input type="hidden" name="awardId" id="awardId" value="<%=award.id %>" />
+                <input
+                  type="hidden"
+                  name="awardId"
+                  id="awardId"
+                  value="<%=award.id %>"
+                />
               </div>
               <div class="col-auto">
                 <div class="input-group mb-2">
                   <label class="sr-only" for="recipientEmailAddress"
-                    >Select a recipient</label>
+                    >Select a recipient</label
+                  >
                   <input
                     class="form-control"
                     type="text"
@@ -78,21 +81,25 @@
                     list="recipientList"
                   />
                   <% if (data.recipientList.length > 0) { %>
-                    <datalist id="recipientList">
-                      <% data.recipientList.forEach(recipient => { %>
-                      <option value="<%=recipient.email%>"
-                        ><%= recipient.fName%></option
-                      >
-                      <% }) %>
-                    </datalist>
+                  <datalist id="recipientList">
+                    <% data.recipientList.forEach(recipient => { %>
+                    <option value="<%=recipient.email%>"
+                      ><%= recipient.fName%></option
+                    >
+                    <% }) %>
+                  </datalist>
                   <% } %>
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit">
-                      <i class="ri-send-plane-fill" style="color: #2487ce; font-size: 0.8rem;"></i>
+                    <button id="<%=award.id %>" class="sendEmailBtn btn btn-outline-secondary" type="submit">
+                      <i
+                        class="ri-send-plane-fill"
+                        style="color: #2487ce; font-size: 0.8rem;"
+                      ></i>
                     </button>
                   </div>
                 </div>
               </div>
+
               <!-- <input
                     class="form-check-input"
                     type="radio"
@@ -112,4 +119,24 @@
     </div>
   </div>
 </section>
+<!-- Modal -->
+<div id="myModal" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- End Hero -->

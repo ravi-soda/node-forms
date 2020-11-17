@@ -40,6 +40,43 @@
     <%- body %>
     <%- include('partials/footer.ejs') %>
     <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="/js/main.js" ></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/main.js" ></script>
+    <script>
+      $(document).ready(function(){
+        $(".sendEmailBtn").on('click', function(e){
+
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+
+          console.log(e.target.id);
+
+          var formId = e.target.id;
+          var form = $(`#form-${formId}`);
+          var url = form.attr('action');
+          var isSuccess = false;
+
+          $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                    // alert(data); // show response from the php script.
+                    isSuccess = true;
+                    $('#myModal').modal('show');
+                }
+
+          });
+
+          // $.ajax({
+          //   type: 'GET',
+          //   url: '/hideModal',
+          //   success: function(order) {
+          //     $('#myModal').modal('show');
+          //   }
+          // });
+        });
+      });
+    </script>
   </body>
 </html>
