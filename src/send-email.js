@@ -11,14 +11,14 @@ class SendEmail {
   constructor () {
   }
 
-  prepareMailOptions = (
+  prepareMailOptions(
     awardType,
     subject,
     text,
     recipientEmailAddress,
     firstName,
     lastName
-  ) => {
+  ){
     if (!awardType || !firstName || !lastName || !recipientEmailAddress) {
       console.log (
         'Invalid Mail Options data',
